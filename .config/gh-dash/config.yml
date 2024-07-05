@@ -1,0 +1,58 @@
+prSections:
+- title: Primary Review
+  filters: is:open review-requested:@me draft:false review:required
+- title: Secondary Review
+  filters: is:open review-requested:@me
+- title: Merged Review
+  filters: is:merged review-requested:@me
+- title: My Open PRs
+  filters: is:open author:@me
+- title: My Closed PRs
+  filters: is:closed author:@me
+defaults:
+  preview:
+    open: true
+    width: 50
+  prsLimit: 20
+  issuesLimit: 20
+  view: prs
+  layout:
+    prs:
+      updatedAt:
+        width: 7
+      repo:
+        width: 25
+        grow: true
+      author:
+        width: 20
+        grow: true
+      assignees:
+        width: 20
+        hidden: true
+      base:
+        width: 15
+        hidden: true
+      lines:
+        width: 16
+    issues:
+      updatedAt:
+        width: 7
+      repo:
+        width: 15
+      creator:
+        width: 10
+      assignees:
+        width: 20
+        hidden: true
+  refetchIntervalMinutes: 10
+keybindings:
+  issues: []
+  prs: []
+repoPaths: {}
+theme:
+  ui:
+    table:
+      showSeparator: true
+pager:
+  diff: delta
+confirmQuit: false
