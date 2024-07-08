@@ -3,7 +3,7 @@
 	email = malav@withpersona.com
 
 [core]
-    editor = subl -w
+    editor = code --wait --new-window
 	excludesfile = /Users/malav/.gitignore_global
 
 [push]
@@ -24,16 +24,17 @@
 [interactive]
     diffFilter = delta --color-only
 
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
+[diff]
+  tool = vscode
 
-[mergetool "sourcetree"]
-	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
+[difftool "vscode"]
+	cmd = code --wait --diff $LOCAL $REMOTE
 
-[commit]
-	template = /Users/malav/.stCommitMsg
+[merge]
+	tool = vscode
+
+[mergetool "vscode"]
+	cmd = code --wait $MERGED
 
 [safe]
 	directory=Users/malav/Development/persona-cli

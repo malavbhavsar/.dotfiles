@@ -1,10 +1,6 @@
 # Add for profiling this dotfile
 # zmodload zsh/zprof
 
-# Aliases
-[[ -f "$HOME/.aliases" ]] && source "$HOME/.aliases"
-[[ -f "$HOME/.localaliases" ]] && source "$HOME/.localaliases"
-
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -41,7 +37,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
+export UPDATE_ZSH_DAYS=7
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -76,7 +72,7 @@ HIST_STAMPS="%d/%m/%y %T "
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git brew bundler web-search sublime macos fasd zsh-autosuggestions zsh-completions zsh-syntax-highlighting history-substring-search)
+plugins=(alias-finder aliases asdf brew bundler docker docker-compose fasd fzf gcloud gh git git-auto-fetch history-substring-search kubectl kubectx macos magic-enter terraform vscode web-search zsh-autosuggestions zsh-completions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -108,10 +104,16 @@ fi
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+[[ -f "$HOME/.aliases" ]] && source "$HOME/.aliases"
+[[ -f "$HOME/.localaliases" ]] && source "$HOME/.localaliases"
 
-# for some ohmyzsh plugins
+# OMZ plugins settingsgins
 export DEFAULT_USER="malav"
 export HISTTIMEFORMAT="%d.%m.%y %T "
+zstyle ':omz:plugins:alias-finder' autoload yes # disabled by default
+zstyle ':omz:plugins:alias-finder' longer yes # disabled by default
+zstyle ':omz:plugins:alias-finder' exact yes # disabled by default
+zstyle ':omz:plugins:alias-finder' cheaper yes # disabled by default
 
 autoload -U compinit && compinit
 
