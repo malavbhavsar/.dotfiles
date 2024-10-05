@@ -1,2 +1,11 @@
 *~
 .DS_Store
+
+# IDEA and Rubymine
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# VSCode
+.vscode/
