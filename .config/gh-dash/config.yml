@@ -1,39 +1,41 @@
 prSections:
-- title: Primary Review
-  filters: is:open review-requested:@me draft:false review:required
-- title: Secondary Review
-  filters: is:open review-requested:@me
-- title: Merged Review
-  filters: is:merged review-requested:@me
-- title: My Open PRs
-  filters: is:open author:@me
-- title: My Closed PRs
-  filters: is:closed author:@me
+- title: 👀 @me
+  filters: is:open -status:failure review-requested:@me draft:false
+- title: 👀 @infra
+  filters: is:open -status:failure team-review-requested:persona-id/infrastructure draft:false
+- title: 👀 @identity
+  filters: is:open -status:failure team-review-requested:persona-id/identity draft:false
+- title: Involved
+  filters: involves:@me -author:@me
+- title: Mine
+  filters: author:@me
 defaults:
   preview:
     open: true
     width: 50
-  prsLimit: 20
-  issuesLimit: 20
+  prsLimit: 30
+  issuesLimit: 30
   view: prs
   layout:
     prs:
       updatedAt:
-        width: 7
+        width: 5
       repo:
         width: 25
         grow: true
+      title:
+        grow: true
       author:
-        width: 20
+        width: 15
         grow: true
       assignees:
-        width: 20
         hidden: true
+        width: 20
       base:
         width: 15
         hidden: true
       lines:
-        width: 16
+        width: 15
     issues:
       updatedAt:
         width: 7
@@ -44,7 +46,7 @@ defaults:
       assignees:
         width: 20
         hidden: true
-  refetchIntervalMinutes: 10
+  refetchIntervalMinutes: 5
 keybindings:
   issues: []
   prs: []
