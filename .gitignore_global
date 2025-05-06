@@ -9,3 +9,9 @@
 
 # VSCode
 .vscode/
+
+# History
+.bash_history
+
+# Other
+.local/

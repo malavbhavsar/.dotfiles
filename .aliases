@@ -1,1 +1,3 @@
 alias dotfiles='/opt/homebrew/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+
+alias gbvr="git branch --format=\"%(committerdate:short)|%(refname:short)|%(contents:subject)\" | column -ts \"|\""

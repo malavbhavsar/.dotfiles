@@ -72,7 +72,7 @@ HIST_STAMPS="%d/%m/%y %T "
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(alias-finder aliases asdf brew bundler docker docker-compose fasd fzf gcloud gh git git-auto-fetch history-substring-search kubectl kubectx macos magic-enter terraform vscode web-search zsh-autosuggestions zsh-completions zsh-syntax-highlighting)
+plugins=(alias-finder aliases brew bundler docker docker-compose fasd fzf gcloud gh git git-auto-fetch history-substring-search kubectl kubectx macos terraform vscode web-search zsh-autosuggestions zsh-completions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -107,7 +107,47 @@ fi
 [[ -f "$HOME/.aliases" ]] && source "$HOME/.aliases"
 [[ -f "$HOME/.localaliases" ]] && source "$HOME/.localaliases"
 
-# OMZ plugins settingsgins
+# script to print what alias is actually executing
+
+local cmd_alias=""
+
+# Reveal Executed Alias
+alias_for() {
+  [[ $1 =~ '[[:punct:]]' ]] && return
+  local search=${1}
+  local found="$( alias $search )"
+  if [[ -n $found ]]; then
+    found=${found//\\//} # Replace backslash with slash
+    found=${found%\'} # Remove end single quote
+    found=${found#"$search="} # Remove alias name
+    found=${found#"'"} # Remove first single quote
+    echo "${found} ${2}" | xargs # Return found value (with parameters)
+  else
+    echo ""
+  fi
+}
+
+expand_command_line() {
+  first=$(echo "$1" | awk '{print $1;}')
+  rest=$(echo ${${1}/"${first}"/})
+
+  if [[ -n "${first//-//}" ]]; then # is not hypen
+    cmd_alias="$(alias_for "${first}" "${rest:1}")" # Check if there's an alias for the command
+    if [[ -n $cmd_alias ]] && [[ "${cmd_alias:0:1}" != "." ]]; then # If there was and not start with dot
+      print -P -- "${FG[022]}❯ Running ❯ ${cmd_alias}%{$reset_color%}"
+    fi
+  fi
+}
+
+pre_validation() {
+  [[ $# -eq 0 ]] && return # If there's no input, return. Else...
+  expand_command_line "$@"
+}
+
+autoload -U add-zsh-hook # Load the zsh hook module. 
+add-zsh-hook preexec pre_validation # Adds the hook 
+
+# OMZ plugins settings
 export DEFAULT_USER="malav"
 export HISTTIMEFORMAT="%d.%m.%y %T "
 zstyle ':omz:plugins:alias-finder' autoload yes # disabled by default
@@ -117,7 +157,9 @@ zstyle ':omz:plugins:alias-finder' cheaper yes # disabled by default
 
 autoload -U compinit && compinit
 
-. /opt/homebrew/opt/asdf/libexec/asdf.sh
+export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
+# ASDF
+
 
 # Add cargo bins
 export PATH="$PATH:$HOME/.cargo/bin"
@@ -131,9 +173,11 @@ if [ -f '/Users/malav/Development/google-cloud-sdk/completion.zsh.inc' ]; then .
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-export USE_GKE_GCLOUD_AUTH_PLUGIN=True
-
+# atuin
 eval "$(atuin init zsh --disable-up-arrow)"
+
+# GKE 
+export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 
 # Add for profiling this dotfile
 # zprof
