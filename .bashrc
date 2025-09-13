@@ -3,3 +3,4 @@
 [[ -f "$HOME/.bash-preexec.sh" ]] && source "$HOME/.bash-preexec.sh"
 
 eval "$(atuin init bash)"
+. "$HOME/.cargo/env"

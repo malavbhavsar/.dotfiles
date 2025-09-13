@@ -13,5 +13,8 @@
 # History
 .bash_history
 
+# AI dotfiles
+.claude/
+
 # Other
 .local/

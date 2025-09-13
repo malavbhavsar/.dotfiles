@@ -72,7 +72,7 @@ HIST_STAMPS="%d/%m/%y %T "
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(alias-finder aliases brew bundler docker docker-compose fasd fzf gcloud gh git git-auto-fetch history-substring-search kubectl kubectx macos terraform vscode web-search zsh-autosuggestions zsh-completions zsh-syntax-highlighting)
+plugins=(alias-finder aliases brew bundler docker docker-compose fzf gcloud gh git git-auto-fetch history-substring-search kubectl kubectx macos terraform vscode web-search zsh-autosuggestions zsh-completions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -157,27 +157,29 @@ zstyle ':omz:plugins:alias-finder' cheaper yes # disabled by default
 
 autoload -U compinit && compinit
 
-export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 # ASDF
-
-
-# Add cargo bins
-export PATH="$PATH:$HOME/.cargo/bin"
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/malav/Development/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/malav/Development/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/malav/Development/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/malav/Development/google-cloud-sdk/completion.zsh.inc'; fi
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 
 # atuin
 eval "$(atuin init zsh --disable-up-arrow)"
 
-# GKE 
+# Cargo
+# Add cargo bins
+export PATH="$PATH:$HOME/.cargo/bin"
+
+# Google
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/malav/Development/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/malav/Development/google-cloud-sdk/path.zsh.inc'; fi
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/malav/Development/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/malav/Development/google-cloud-sdk/completion.zsh.inc'; fi
+
+# Powerline
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# Zoxide
+eval "$(zoxide init zsh)"
 
 # Add for profiling this dotfile
 # zprof

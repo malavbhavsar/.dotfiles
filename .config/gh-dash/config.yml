@@ -1,14 +1,16 @@
 prSections:
 - title: 👀 @me
   filters: is:open -status:failure review-requested:@me draft:false
+- title: 👀 @eiv
+  filters: is:open -status:failure team-review-requested:persona-id/engineering-internal-velocity draft:false
 - title: 👀 @infra
   filters: is:open -status:failure team-review-requested:persona-id/infrastructure draft:false
-- title: 👀 @identity
-  filters: is:open -status:failure team-review-requested:persona-id/identity draft:false
-- title: Involved
-  filters: involves:@me -author:@me
-- title: Mine
-  filters: author:@me
+- title: 👷🏽 @eiv
+  filters: is:open author:mdayaram author:yiran0427 author:bryankane author:Reyansh14 author:@me
+- title: ✴︎ @eiv
+  filters: author:mdayaram author:yiran0427 author:bryankane author:Reyansh14 author:@me
+- title: 🔨 @me
+  filters: is:open author:@me
 defaults:
   preview:
     open: true
@@ -58,3 +60,5 @@ theme:
 pager:
   diff: delta
 confirmQuit: false
+smartFilteringAtLaunch: false
+showAuthorIcons: false
